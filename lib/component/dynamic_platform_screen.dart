@@ -67,7 +67,6 @@ class _AndroidScreen extends StatelessWidget {
               title: Text(appDrawer!.title),
               automaticallyImplyLeading: false,
             ),
-            const Divider(),
             ...cards
           ],
         ),
@@ -161,10 +160,11 @@ class _IosScreenState extends State<_IosScreen> with SingleTickerProviderStateMi
         leading: button,
       ),
       child: SafeArea(
+        bottom: false,
         child: widget.hasDrawer
             ? Stack(
                 children: [
-                  widget.body,
+                  SafeArea(child: widget.body),
                   FadeTransition(
                     opacity: _opacityAnimation,
                     child: Container(
@@ -192,48 +192,50 @@ class _IosScreenState extends State<_IosScreen> with SingleTickerProviderStateMi
                               ]
                             : [],
                       ),
-                      child: SingleChildScrollView(
-                        child: Column(
-                          children: widget.appDrawer!.items.map((item) {
-                            return GestureDetector(
-                              onTap: () => Navigator.of(context).pushReplacementNamed(item.navigationPath),
-                              child: Container(
-                                color: CupertinoTheme.of(context).scaffoldBackgroundColor,
-                                child: Column(
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                        vertical: 10,
-                                        horizontal: 15,
-                                      ),
-                                      child: SizedBox(
-                                        width: double.infinity,
-                                        child: FittedBox(
-                                          fit: BoxFit.scaleDown,
-                                          alignment: AlignmentDirectional.centerStart,
-                                          child: Row(
-                                            children: [
-                                              item.icon,
-                                              const SizedBox(width: 10),
-                                              Text(item.title),
-                                            ],
+                      child: SafeArea(
+                        child: SingleChildScrollView(
+                          child: Column(
+                            children: widget.appDrawer!.items.map((item) {
+                              return GestureDetector(
+                                onTap: () => Navigator.of(context).pushReplacementNamed(item.navigationPath),
+                                child: Container(
+                                  color: CupertinoTheme.of(context).scaffoldBackgroundColor,
+                                  child: Column(
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                          vertical: 10,
+                                          horizontal: 15,
+                                        ),
+                                        child: SizedBox(
+                                          width: double.infinity,
+                                          child: FittedBox(
+                                            fit: BoxFit.scaleDown,
+                                            alignment: AlignmentDirectional.centerStart,
+                                            child: Row(
+                                              children: [
+                                                item.icon,
+                                                const SizedBox(width: 10),
+                                                Text(item.title),
+                                              ],
+                                            ),
                                           ),
                                         ),
                                       ),
-                                    ),
-                                    const Divider()
-                                  ],
+                                      const Divider()
+                                    ],
+                                  ),
                                 ),
-                              ),
-                            );
-                          }).toList(),
+                              );
+                            }).toList(),
+                          ),
                         ),
                       ),
                     ),
                   )
                 ],
               )
-            : widget.body,
+            : SafeArea(child: widget.body),
       ),
     );
   }
