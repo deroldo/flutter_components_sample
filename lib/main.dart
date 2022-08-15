@@ -1,18 +1,31 @@
 import 'package:flutter_components_sample/component/dynamic_platform_screen.dart';
+import 'package:flutter_components_sample/model/app_tabs.dart';
 import 'package:flutter_components_sample/model/drawer_item.dart';
 
 import 'component/dynamic_platform_app.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import 'component/dynamic_platform_navigation_tab.dart';
+
 void main() {
   runApp(DynamicPlatformApp(
     title: 'Custom App',
+    navigationTab: Test(),
     routes: {
-      "/": (ctx) => Home(),
+      "/home": (ctx) => Home(),
       "/cart": (ctx) => Cart(),
     },
   ));
+}
+
+class Test extends DynamicPlatformNavigationTab {
+  Test()
+      : super(
+            appTabs: AppTabs([
+          AppTab(icon: const Icon(CupertinoIcons.home), label: "Home", screen: Home()),
+          AppTab(icon: const Icon(CupertinoIcons.shopping_cart), label: "Cart", screen: Cart()),
+        ]));
 }
 
 class Home extends DynamicPlatformScreen {
@@ -34,9 +47,6 @@ class Cart extends DynamicPlatformScreen {
   Widget get body {
     return const SingleChildScrollView(child: Text("Cart page"));
   }
-
-  @override
-  AppDrawer? get appDrawer => MyDrawer();
 }
 
 class MyDrawer extends AppDrawer {
@@ -54,6 +64,84 @@ class MyDrawer extends AppDrawer {
               Icons.shopping_cart,
               CupertinoIcons.cart,
               title: "Carrinho",
+              navigationPath: "/cart",
+            ),
+            const AppDrawerItem(
+              Icons.shopping_cart,
+              CupertinoIcons.cart,
+              title: "Carrinho",
+              navigationPath: "/cart",
+            ),
+            const AppDrawerItem(
+              Icons.shopping_cart,
+              CupertinoIcons.cart,
+              title: "Carrinho",
+              navigationPath: "/cart",
+            ),
+            const AppDrawerItem(
+              Icons.shopping_cart,
+              CupertinoIcons.cart,
+              title: "Carrinho",
+              navigationPath: "/cart",
+            ),
+            const AppDrawerItem(
+              Icons.shopping_cart,
+              CupertinoIcons.cart,
+              title: "Carrinho",
+              navigationPath: "/cart",
+            ),
+            const AppDrawerItem(
+              Icons.shopping_cart,
+              CupertinoIcons.cart,
+              title: "Carrinho",
+              navigationPath: "/cart",
+            ),
+            const AppDrawerItem(
+              Icons.shopping_cart,
+              CupertinoIcons.cart,
+              title: "Carrinho",
+              navigationPath: "/cart",
+            ),
+            const AppDrawerItem(
+              Icons.shopping_cart,
+              CupertinoIcons.cart,
+              title: "Carrinho",
+              navigationPath: "/cart",
+            ),
+            const AppDrawerItem(
+              Icons.shopping_cart,
+              CupertinoIcons.cart,
+              title: "Carrinho",
+              navigationPath: "/cart",
+            ),
+            const AppDrawerItem(
+              Icons.shopping_cart,
+              CupertinoIcons.cart,
+              title: "Carrinho",
+              navigationPath: "/cart",
+            ),
+            const AppDrawerItem(
+              Icons.shopping_cart,
+              CupertinoIcons.cart,
+              title: "Carrinho",
+              navigationPath: "/cart",
+            ),
+            const AppDrawerItem(
+              Icons.shopping_cart,
+              CupertinoIcons.cart,
+              title: "Carrinho",
+              navigationPath: "/cart",
+            ),
+            const AppDrawerItem(
+              Icons.shopping_cart,
+              CupertinoIcons.cart,
+              title: "Carrinho",
+              navigationPath: "/cart",
+            ),
+            const AppDrawerItem(
+              Icons.shopping_cart,
+              CupertinoIcons.cart,
+              title: "Test",
               navigationPath: "/cart",
             ),
           ],

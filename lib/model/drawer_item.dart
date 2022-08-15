@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 class AppDrawer {
@@ -10,6 +11,31 @@ class AppDrawer {
     required this.title,
     required this.items,
   });
+
+  Drawer toDrawer(BuildContext context) {
+    List<Widget> cards = items.map((item) {
+      return ListTile(
+        leading: item.icon,
+        title: Text(item.title),
+        onTap: () => Navigator.of(context).pushReplacementNamed(item.navigationPath),
+      );
+    }).toList();
+
+    return Drawer(
+      child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            AppBar(
+              title: Text(title),
+              automaticallyImplyLeading: false,
+            ),
+            ...cards
+          ],
+        ),
+      ),
+    );
+  }
 }
 
 class AppDrawerItem {

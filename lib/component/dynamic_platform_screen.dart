@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../model/drawer_item.dart';
+import 'dynamic_platform_app.dart';
 
 abstract class DynamicPlatformScreen extends StatelessWidget {
   final String title;
@@ -49,32 +50,16 @@ class _AndroidScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Drawer? drawer;
-    if (appDrawer != null) {
-      List<Widget> cards = appDrawer!.items.map((item) {
-        return ListTile(
-          leading: item.icon,
-          title: Text(item.title),
-          onTap: () => Navigator.of(context).pushReplacementNamed(item.navigationPath),
-        );
-      }).toList();
+    DynamicPlatformAppData? appProvider = DynamicPlatformAppProvider.of(context)?.appData;
+    bool hasNavigationBar = appProvider != null ? appProvider.hasNavigationTab : false;
 
-      drawer = Drawer(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            AppBar(
-              title: Text(appDrawer!.title),
-              automaticallyImplyLeading: false,
-            ),
-            ...cards
-          ],
-        ),
-      );
+    Drawer? drawer;
+    if (appDrawer != null && !hasNavigationBar) {
+      drawer = appDrawer!.toDrawer(context);
     }
 
     return Scaffold(
-      appBar: AppBar(
+      appBar: hasNavigationBar ? null : AppBar(
         title: Text(title),
       ),
       drawer: drawer,
